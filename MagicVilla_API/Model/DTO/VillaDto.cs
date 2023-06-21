@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MagicVilla_API.Model.DTO
 {
@@ -9,18 +10,11 @@ namespace MagicVilla_API.Model.DTO
         [Required]
         [MaxLength(30)]
         public string Nombre { get; set; }
-
-        public String Detalle { get; set; }
-
-        [Required]
+        public string Detalle { get; set; }
         public double Tarifa { get; set; }
-
         public int Ocupantes { get; set; }
-
-        public int MetrosCuadrados { get; set; }
-
+        public int MetrosCuadrados { get; set; }        
         public string ImagenUrl { get; set; }
-
         public string Amenidad { get; set; }
     }
 }

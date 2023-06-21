@@ -17,15 +17,13 @@ namespace MagicVilla_API.Datos
             modelBuilder.Entity<Villa>().HasData(
                 new Villa()
                 {
-                    Id= 1,
-                    Nombre="Villa Real",
-                    Detalle="Detalle de la Villa...",
-                    ImagenUrl="",
-                    Ocupantes=5,
-                    MetrosCuadrados=200,
-                    Amenidad="",
-                    FechaCreacion = DateTime.Now,
-                    FechaActualizacion=DateTime.Now
+                    Id = 1,
+                    Nombre = "Villa Real",
+                    Detalle = "Detalle de la Real...",
+                    ImagenUrl = "",
+                    Ocupantes = 4,
+                    MetrosCuadrados = 150,
+                    Amenidad = "",
                 },
                 new Villa()
                 {
@@ -36,8 +34,16 @@ namespace MagicVilla_API.Datos
                     Ocupantes = 4,
                     MetrosCuadrados = 150,
                     Amenidad = "",
-                    FechaCreacion = DateTime.Now,
-                    FechaActualizacion = DateTime.Now
+                },
+                new Villa()
+                {
+                    Id = 3,
+                    Nombre = "Villa Rodrigo",
+                    Detalle = "Detalle de la Villa...",
+                    ImagenUrl = "",
+                    Ocupantes = 5,
+                    MetrosCuadrados = 150,
+                    Amenidad = "",
                 }
                 );
         }

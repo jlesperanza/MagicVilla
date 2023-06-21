@@ -4,6 +4,7 @@ using MagicVilla_API.Model.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace MagicVilla_API.Controllers
@@ -20,7 +21,7 @@ namespace MagicVilla_API.Controllers
             _logger = logger;
             _db = db;        
         }
-
+   
 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -30,7 +31,7 @@ namespace MagicVilla_API.Controllers
             return Ok(_db.Villas.ToList());
         }
 
-        [HttpGet("id:int" , Name="GetVilla")]
+        [HttpGet("id:int",Name="GetVilla")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -79,7 +80,6 @@ namespace MagicVilla_API.Controllers
 
             Villa modelo = new()
             {
-                Id = villaDto.Id,
                 Nombre = villaDto.Nombre,
                 Detalle = villaDto.Detalle,
                 ImagenUrl = villaDto.ImagenUrl,
@@ -89,7 +89,7 @@ namespace MagicVilla_API.Controllers
                 Amenidad = villaDto.Amenidad
             };
 
-            _db.Add(modelo);
+            _db.Villas.Add(modelo);
             _db.SaveChanges();
 
             return CreatedAtRoute("GetVilla", new {id = villaDto.Id}, villaDto);
@@ -148,8 +148,8 @@ namespace MagicVilla_API.Controllers
         }
 
         [HttpPatch("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public IActionResult UpdatePartialVilla(int id, JsonPatchDocument<VillaDto> patchDto)
         {
             if (patchDto == null || id == 0)
@@ -157,13 +157,14 @@ namespace MagicVilla_API.Controllers
                 return BadRequest();
             }
 
-            var villa = _db.Villas.FirstOrDefault(v => v.Id == id);
+            var villa = _db.Villas.AsNoTracking().FirstOrDefault(v => v.Id == id);
 
             VillaDto villaDto = new()
             {
                 Id = villa.Id,
                 Nombre = villa.Nombre,
                 Detalle = villa.Detalle,
+                ImagenUrl = villa.ImagenUrl,
                 Ocupantes = villa.Ocupantes,
                 Tarifa = villa.Tarifa,
                 MetrosCuadrados =  villa.MetrosCuadrados,

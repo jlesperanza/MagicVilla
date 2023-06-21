@@ -6,14 +6,14 @@ namespace MagicVilla_API.Model
     public class Villa
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Nombre { get; set; }
 
         public string Detalle { get; set; }
 
-        [Required]
+        
         public double Tarifa { get; set; }
 
         public int Ocupantes { get; set; }
